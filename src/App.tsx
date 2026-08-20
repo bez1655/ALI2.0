@@ -149,6 +149,7 @@ export default function App() {
           setUserName(data.name);
           setUserRole(data.role === "admin" ? "admin" : "player");
           setUserColor(data.color || "#39FF14");
+          // Always show the painted rules screen after Telegram entry.
           setScreen("rules");
           return;
         }
@@ -261,7 +262,9 @@ export default function App() {
           setUserRole((cachedRole as "admin" | "player") || "player");
           setUserColor(cachedColor || "#39FF14");
 
-          if (cachedScreen) {
+          if (localStorage.getItem("ali_rules_seen") !== "1") {
+            setScreen("rules");
+          } else if (cachedScreen) {
             setScreen(cachedScreen as any);
           } else {
             setScreen("board");
@@ -451,6 +454,7 @@ export default function App() {
   };
 
   const handleProceedFromRules = () => {
+    localStorage.setItem("ali_rules_seen", "1");
     setScreen("board");
     localStorage.setItem("hapstore_screen", "board");
   };

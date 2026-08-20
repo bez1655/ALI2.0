@@ -1,6 +1,6 @@
 {
-  "appId": "store.bez12.hcg",
-  "appName": "Hapstore",
+  "appId": "store.bez12.ali",
+  "appName": "Али-Баба",
   "webDir": "www",
   "android": {
     "allowMixedContent": false
@@ -11,7 +11,7 @@
   "plugins": {
     "StatusBar": {
       "style": "DARK",
-      "backgroundColor": "#060412"
+      "backgroundColor": "#0B1426"
     }
   }
 }

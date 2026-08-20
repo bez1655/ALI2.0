@@ -1,8 +1,8 @@
 {
-  "name": "hcg-android",
+  "name": "ali-android",
   "version": "1.0.0",
   "private": true,
-  "description": "HCG standalone Android build (Capacitor wrapper around the web client)",
+  "description": "Али-Баба standalone Android build (Capacitor wrapper around the web client)",
   "scripts": {
     "build:web": "node scripts/build-web.mjs",
     "icons": "npx @capacitor/assets generate --android --assetPath resources",

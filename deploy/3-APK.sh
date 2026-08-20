@@ -214,10 +214,24 @@ ok "интерфейс собран"
 # ---------------------------------------------------------------------------
 hdr "7/8  Проект Android"
 # ---------------------------------------------------------------------------
+# HCG uses store.bez12.hcg. If that id stays, Android treats this APK as an
+# update to Hapstore and refuses a side-by-side install.
+if [ -f android/app/build.gradle ] && grep -q 'store.bez12.hcg' android/app/build.gradle; then
+  warn "в проекте Android ещё пакет HCG — пересоздаю с store.bez12.ali"
+  rm -rf android
+fi
 if [ ! -d android ]; then
   npx cap add android || die "не удалось создать проект Android"
 fi
 npx cap sync android || die "не удалось перенести файлы"
+
+# Capacitor copies appId from capacitor.config.json, but an older android/
+# tree can keep the previous applicationId. Force it after every sync.
+if [ -f android/app/build.gradle ]; then
+  sed -i 's/applicationId .*/applicationId "store.bez12.ali"/' android/app/build.gradle
+  sed -i 's/namespace .*/namespace "store.bez12.ali"/' android/app/build.gradle
+  ok "пакет Android: store.bez12.ali (отдельное приложение, не обновление HCG)"
+fi
 
 # Иконка приложения. Без этого шага Android показал бы стандартный логотип
 # Capacitor. Один файл resources/icon.png превращается в 74 файла всех

@@ -34,7 +34,7 @@ export default function LoginScreen({ backgroundUrl, notice, onLogin }: LoginScr
     if (notice) setErrorMsg(notice);
   }, [notice]);
 
-  const bg = backgroundUrl || "/LogALI.mp4?v=3";
+  const bg = backgroundUrl || "/LogALI.mp4?v=4";
   const isVideo = bg.endsWith(".mp4") || bg.endsWith(".mov") || bg.startsWith("data:video");
 
   React.useEffect(() => {
@@ -92,8 +92,8 @@ export default function LoginScreen({ backgroundUrl, notice, onLogin }: LoginScr
   };
 
   return (
-    <div className="h-[100dvh] w-full bg-[#0B1426] flex items-center justify-center font-sans overflow-hidden select-none">
-      <div className="relative h-full w-full max-w-[56.25vh] aspect-[9/16] overflow-hidden">
+    <div className="h-[100dvh] w-full bg-[#0B1426] flex items-center justify-center overflow-hidden select-none">
+      <div className="relative h-full w-full max-w-[56.25vh] aspect-[9/16]">
         {isVideo ? (
           <video
             src={bg}
@@ -101,46 +101,39 @@ export default function LoginScreen({ backgroundUrl, notice, onLogin }: LoginScr
             loop
             muted
             playsInline
-            poster="/LogALI.png?v=3"
+            poster="/LogALI.png?v=4"
             className="absolute inset-0 w-full h-full object-cover z-0"
           />
         ) : (
           <img src={bg} alt="" className="absolute inset-0 w-full h-full object-cover z-0" />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0914]/95 via-[#0B0914]/35 to-transparent z-10" />
 
-        <form
-          onSubmit={handleSubmit}
-          className="absolute z-20 left-5 right-5 bottom-6 rounded-2xl border-2 border-[#D4AF37]/70 bg-[#0B1426]/80 backdrop-blur-md p-4 flex flex-col gap-3 shadow-[0_0_30px_rgba(212,175,55,0.25)]"
-        >
-          <div className="text-center">
-            <div className="text-[#D4AF37] text-[10px] tracking-[0.25em] font-black">ВРАТА БАЗАРА</div>
-            <div className="text-white text-lg font-black leading-tight">Али-Баба и 40 кладов</div>
+        {errorMsg && (
+          <div className="absolute top-[8%] left-[8%] right-[8%] z-30 bg-red-950/90 border border-red-500/50 rounded-lg p-2 text-xs text-red-100 text-center">
+            {errorMsg}
           </div>
+        )}
 
-          {errorMsg && (
-            <div className="bg-red-950/80 border border-red-500/50 rounded-lg p-2 text-xs text-red-200 text-center">
-              {errorMsg}
-            </div>
-          )}
-
+        <form onSubmit={handleSubmit} className="absolute inset-0 z-20">
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Имя, например: @sinbad"
+            placeholder=""
             maxLength={20}
-            className="w-full bg-black/50 border border-[#D4AF37]/40 rounded-lg px-3 py-2 text-sm text-white placeholder-white/40 focus:outline-none focus:border-[#D4AF37]"
+            autoComplete="username"
+            className="absolute left-[18%] top-[54%] w-[64%] h-[4.2%] bg-transparent text-amber-100 text-sm px-2 focus:outline-none"
           />
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Тайное слово"
-            className="w-full bg-black/50 border border-[#D4AF37]/40 rounded-lg px-3 py-2 text-sm text-white placeholder-white/40 focus:outline-none focus:border-[#D4AF37]"
+            placeholder=""
+            autoComplete="current-password"
+            className="absolute left-[18%] top-[62.5%] w-[64%] h-[4.2%] bg-transparent text-amber-100 text-sm px-2 focus:outline-none"
           />
 
-          <div className="flex items-center justify-between px-1">
+          <div className="absolute left-[18%] top-[70%] w-[64%] h-[4%] flex items-center justify-between">
             {PALETTE.map((color) => (
               <button
                 key={color.hex}
@@ -150,11 +143,10 @@ export default function LoginScreen({ backgroundUrl, notice, onLogin }: LoginScr
                   playSound("click");
                   setSelectedColor(color.hex);
                 }}
-                className="h-7 w-7 rounded-full border-2"
+                className="h-6 w-6 rounded-full border-2"
                 style={{
                   backgroundColor: selectedColor === color.hex ? color.hex : "transparent",
                   borderColor: color.hex,
-                  boxShadow: selectedColor === color.hex ? `0 0 10px ${color.hex}` : undefined,
                 }}
               />
             ))}
@@ -194,7 +186,7 @@ export default function LoginScreen({ backgroundUrl, notice, onLogin }: LoginScr
                   playSound("error");
                 }
               }}
-              className="w-full py-2 border border-[#D4AF37]/50 text-[#D4AF37] rounded-lg text-[11px] font-black tracking-wider"
+              className="absolute left-[20%] top-[88%] w-[60%] h-[4%] text-[10px] font-black tracking-wider text-[#D4AF37]"
             >
               ПРОСИТЬ ДОПУСК
             </button>
@@ -203,9 +195,12 @@ export default function LoginScreen({ backgroundUrl, notice, onLogin }: LoginScr
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 bg-[#D4AF37] text-[#0B0914] rounded-lg text-sm font-black tracking-wider"
+            className="absolute left-[32%] top-[77%] w-[36%] h-[9%] bg-transparent cursor-pointer"
+            aria-label="Войти"
           >
-            {loading ? "ОТКРЫВАЮ ВРАТА…" : "ВОЙТИ В ПЕЩЕРУ"}
+            {loading ? (
+              <span className="text-[#D4AF37] text-xs font-black">…</span>
+            ) : null}
           </button>
         </form>
       </div>

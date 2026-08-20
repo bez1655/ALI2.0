@@ -426,18 +426,17 @@ export default function BoardView({
       {/* Immersive Full-Screen Video/Image Background */}
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
         <video
-          src="/BoardALI.mp4?v=3"
+          src="/BoardALI.mp4?v=4"
           autoPlay
           loop
           muted
           playsInline
-          poster="/BoardALI.png?v=3"
-          className="w-full h-full object-cover opacity-45 brightness-100 blur-[1px]"
+          poster="/BoardALI.png?v=4"
+          className="w-full h-full object-cover opacity-70"
         />
       </div>
 
-      {/* Decorative Grid Overlay for Matrix look */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(224,224,230,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(224,224,230,0.06)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0" />
+      {/* No cyber grid — the painted board is the scene. */}
 
       {/* Floating Cyber-Dust / Neon Embers Particles */}
       <CyberParticles />
@@ -996,13 +995,13 @@ export default function BoardView({
           {/* Background Map video */}
           <video
             ref={boardVideoRef}
-            src="/BoardALI.mp4?v=3"
+            src="/BoardALI.mp4?v=4"
             autoPlay
             loop
             muted
             playsInline
-            poster="/BoardALI.png?v=3"
-            className="absolute inset-0 w-full h-full object-fill opacity-100 pointer-events-none z-0"
+            poster="/BoardALI.png?v=4"
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0"
             onError={(_e) => {
               console.error("Board background video load error");
             }}

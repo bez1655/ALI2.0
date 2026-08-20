@@ -7,7 +7,7 @@ interface RulesScreenProps {
 }
 
 export default function RulesScreen({ backgroundUrl, onProceed }: RulesScreenProps) {
-  const bg = backgroundUrl || "/RulesALI.mp4?v=3";
+  const bg = backgroundUrl || "/RulesALI.mp4?v=4";
   const isVideo = bg.endsWith(".mp4") || bg.endsWith(".mov") || bg.startsWith("data:video");
 
   const handleProceed = () => {
@@ -44,7 +44,7 @@ export default function RulesScreen({ backgroundUrl, onProceed }: RulesScreenPro
             loop
             muted
             playsInline
-            poster="/RulesALI.png?v=3"
+            poster="/RulesALI.png?v=4"
             className="absolute inset-0 w-full h-full object-cover z-0"
           ></video>
         ) : (
